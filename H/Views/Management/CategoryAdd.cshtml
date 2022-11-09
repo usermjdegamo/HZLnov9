@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "CategoryAdd";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Add a New Perfume Category</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                @using (Html.BeginForm("CategoryAdd", "Management", FormMethod.Post))
+                {
+                    <div class="form-group text-center">
+                        <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label"></label>
+                        <input type="text" required name="name" placeholder="Category name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="control-label"></label>
+                        <input type="text" required name="description" placeholder="Category description" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="imageLink" class="control-label"></label>
+                        <input type="text" required name="imageLink" placeholder="Image link" class="form-control" />
+                    </div>
+                    <div class="form-group hidden">
+                        <label for="userID" class="control-label"></label>
+                        <input type="text" readonly name="userID" value="@Session["userID"].ToString()" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Add category" class="btn btn-outline-success float-right" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

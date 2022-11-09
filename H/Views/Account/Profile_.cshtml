@@ -1,0 +1,20 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Profile_";
+}
+
+<h2>Profile_</h2>
+
+@using (Html.BeginForm("Profile_", "Account", FormMethod.Post))
+{
+    <input value="@ViewBag.userID" type="text" class="form-control hidden" name="id" placeholder="username" />
+    <input required value="@ViewBag.username" type="text" class="form-control" name="username" placeholder="username" />
+    <input required value="@ViewBag.password" type="text" class="form-control" name="password" placeholder="password" />
+    <input required value="@ViewBag.name" type="text" class="form-control" name="name" placeholder="name" />
+    <input required value="@ViewBag.gender" type="text" class="form-control" name="gender" placeholder="gender" />
+    <input required value="@ViewBag.imageLink" type="text" class="form-control" name="imageLink" placeholder="imageLink" />
+    <input required value="@ViewBag.userBalance" type="text" class="form-control" name="balance" placeholder="balance" />
+    <input required type="submit" class="form-control btn-success" value="Save" />
+}

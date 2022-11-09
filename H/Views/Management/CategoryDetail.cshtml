@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "CategoryDetail";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Actor Details</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form>
+                    <div class="form-group text-center">
+                        <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
+                    </div>
+                    <div class="form-group" hidden>
+                        <label for="actorID" class="control-label">ID</label>
+                        <input type="text" value="@ViewBag.categoryID" readonly name="actorID" placeholder="Actor ID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="profileURL" class="control-label">Profile Picture URL</label>
+                        <input type="text" value="@ViewBag.categoryProfile" readonly name="profileURL" placeholder="Profile picture link" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Full Name</label>
+                        <input type="text" value="@ViewBag.categoryName" readonly name="fullName" placeholder="Full Name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="bio" class="control-label">Bio</label>
+                        <input type="text" value="@ViewBag.categoryDescription" readonly name="bio" placeholder="Bio" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="button" value="Go Back" onclick="location.href='@Url.Action("Category", "Management")'" class="btn btn-outline-success float-right" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

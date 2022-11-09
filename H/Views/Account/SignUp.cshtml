@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<h2>SignUp</h2>
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
+{
+    <input required type="text" class="form-control" name="username" placeholder="username" />
+    <input required type="text" class="form-control" name="password" placeholder="password" />
+    <input required type="text" class="form-control" name="name" placeholder="name" />
+    <input required type="text" class="form-control" name="gender" placeholder="gender" />
+    <input required type="text" class="form-control" name="imageLink" placeholder="imageLink" />
+    <input required type="submit" class="form-control btn-success" value="Sign Up" />
+}

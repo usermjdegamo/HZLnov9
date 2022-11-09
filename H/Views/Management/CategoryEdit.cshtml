@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "CategoryEdit";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Category</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                @using (Html.BeginForm("CategoryEdit", "Management", FormMethod.Post))
+                {
+                    <div class="form-group text-center">
+                        <img id="ProfilePicturePreview" class="border-info rounded-circle" style="max-width: 150px" />
+                    </div>
+                    <div class="form-group">
+                        <label for="actorID" class="control-label">ID</label>
+                        <input type="text" value="@ViewBag.categoryID" readonly required name="id" placeholder="Actor ID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="profileURL" class="control-label">Profile Picture URL</label>
+                        <input type="text" value="@ViewBag.categoryProfile" required name="imageLink" placeholder="Profile picture link" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName" class="control-label">Category Name</label>
+                        <input type="text" value="@ViewBag.categoryName" required name="name" placeholder="Full Name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="bio" class="control-label">Description</label>
+                        <input type="text" value="@ViewBag.categoryDescription" required name="description" placeholder="Descriptionn" class="form-control" />
+                    </div>
+                    <div class="form-group hidden">
+                        <label for="userID" class="control-label"></label>
+                        <input type="text" readonly name="userID" value="@Session["userID"].ToString()" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
