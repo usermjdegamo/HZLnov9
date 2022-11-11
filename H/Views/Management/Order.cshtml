@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Order";
 }
-
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <h1>My Cart</h1>
 <div class="row">
     <div class="col-md-8 offset-md-2">
@@ -22,12 +22,21 @@
             <tbody>
                 @{
                     int haha = 0;
+                    //int[] ordID = new int[10];
+                    List<int> myInts = new List<int>();
+                    //int i = 0;
+                    int[] id = { 1, 2, 3 };
                 }
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.id)
+                            @{
+                                myInts.Add(item.id);
+                                //ordID[i] = item.id;
+                                //i++;
+                            }
                         </td>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.Product.name)
@@ -41,15 +50,16 @@
                         @{
                             int tagpila = Convert.ToInt32(item.Product.price) * Convert.ToInt32(item.quantity);
                             haha += tagpila;
+
                         }
                         <td class="align-middle">
                             @tagpila
                         </td>
                         <td class="align-middle">
-                            <a class="btn btn-danger text-white" onclick="location.href='@Url.Action("OrderDelete", "Management", new { id = item.id })'" data-id="@item.id"><i class="bi bi-trash"></i>Remove </a>
+                            <a class="btn btn-danger text-white" onclick="location.href='@Url.Action("OrderDelete", "Management", new { id = item.id })'" @*data-id="@item.id"*@><i class="bi bi-trash"></i>Remove </a>
                             @if (haha <= Convert.ToInt32(Session["userBalance"].ToString()))
                             {
-                                <a class="btn btn-success text-white" onclick="location.href='@Url.Action("OrderBuy", "Management", new { ordID = item.id})'"><i class="bi bi-pencil-square"></i>Buy</a>
+                                <a id="btnBuy" class="btn btn-success text-white" onclick="location.href='@Url.Action("OrderBuy", "Management", new { ordID = item.id})'" data-id="@item.id"><i class="bi bi-pencil-square"></i>Buy</a>
                             }
                             else
                             {
@@ -61,23 +71,77 @@
                         </td>
                     </tr>
                 }
+                @{
+                    Session["item"] = myInts;
+                }
             </tbody>
         </table>
         <div>
             <h2>Total: @haha</h2>
             @{
+                var arrayko = myInts.ToArray();
+                string comma = ", ";
+
+            }
+            <h2>
+
+                @foreach (var hehe in arrayko)
+                {
+                    @hehe @comma;
+                }
+            </h2>
+            @{
                 if (haha <= Convert.ToInt32(Session["userBalance"].ToString()))
                 {
                     <h5>Afford nako kay ang akong kwarta kay @Session["userBalance"].ToString()</h5>
-                    <a class="btn btn-success text-white" onclick="location.href='@Url.Action("OrderBuy", "Management", new { ordID = 1})'"><i class="bi bi-pencil-square"></i>Buy all</a>
+                    <a class="btn btn-success text-white" @*onclick="location.href='@Url.Action("OrderBuyBulk", "Management", new { @myInts })'"*@>@*<i class="bi bi-pencil-square"></i>*@Buy all</a>
                 }
                 else
                 {
                     <h5>dili kaigo akong kwarta nga @Session["userBalance"].ToString() huhu kuwangan ko og @(haha - Convert.ToInt32(Session["userBalance"].ToString()))</h5>
-                    <a class="disabled btn btn-success text-white" onclick="location.href='@Url.Action("OrderBuy", "Management", new { ordID = 1})'"><i class="bi bi-pencil-square"></i>Buy all</a>
+                    <a class="disabled btn btn-success text-white" onclick="location.href='@Url.Action("OrderBuyBulk", "Management", new { ordID = 1})'"><i class="bi bi-pencil-square"></i>Buy all</a>
                 }
             }
+
+            @*<button type="button" id="buttone">Click me</button>*@
 
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $('#buyLahat').click(function () {
+            console.log("fsafsafs");
+            $.ajax({
+            url:"@Url.Action("OrderBuyBulk", "Management")",
+            type: 'GET',
+            dataType: 'json',
+            //contentType: 'application/json',
+            traditional: true,
+                data: { arrayko: arrayko },
+                success: function () {
+                showNotification("Record Saved Successfully", "info", true);
+
+            }
+        });
+        });
+
+
+    @*$("#buyLahat").on("click",function () {
+        console.log("fsafsafs");
+        $.ajax({
+
+            url:"@Url.Action("OrderBuyBulk", "Management")",
+            type: 'GET',
+            dataType: 'json',
+            //contentType: 'application/json',
+            //traditional: true,
+            data: { arrayko: arr },
+            success: function () {
+                showNotification("Record Saved Successfully", "info", true);
+
+            }
+        });
+        });*@
+    });
+</script>

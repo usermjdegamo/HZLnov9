@@ -216,7 +216,30 @@ namespace H.Controllers
                 dhaha.User.balance = dhaha.User.balance - dhaha.Product.price * dhaha.quantity;
                 dhaha.served = 1;
                 db.SaveChanges();
+                //ordIDs
             }
+
+            return RedirectToAction("Order", "Management");
+        }
+
+        public ActionResult OrderBuyBulk(string[] arrayko/*int[] id*/)
+        {
+            int[] vsav = ViewBag.myInts;
+            int useridako = Convert.ToInt32(Session["userID"].ToString());
+
+            foreach (var i in arrayko)
+            {
+                int temp = Convert.ToInt32(i);
+                var dhaha = db.Orders.Where(x => x.id == temp && x.userID == useridako).FirstOrDefault();
+                if (dhaha != null)
+                {
+                    dhaha.User.balance = dhaha.User.balance - dhaha.Product.price * dhaha.quantity;
+                    dhaha.served = 1;
+                    db.SaveChanges();
+                    //ordIDs
+                }
+            }
+
             return RedirectToAction("Order", "Management");
         }
 
@@ -226,7 +249,7 @@ namespace H.Controllers
             db.Orders.Remove(db2);
             db.SaveChanges();
 
-            return RedirectToAction("Order", "Management");
+            return RedirectToAction("OrderDone", "Management");
         }
     }
 }
