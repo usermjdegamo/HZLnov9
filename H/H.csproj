@@ -191,6 +191,7 @@
     <Content Include="Views\Management\ProductEdit.cshtml" />
     <Content Include="Views\Management\Order.cshtml" />
     <Content Include="Views\Management\OrderDone.cshtml" />
+    <Content Include="Views\Account\SignUpAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

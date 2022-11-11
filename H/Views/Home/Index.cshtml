@@ -6,11 +6,11 @@
 @if (Session["userID"] != null)
 {
 
-    <h2>Welcome to H Perfume's collection,  @Session["name"].ToString()</h2>
+    <h2>Welcome to HZL's Perfume collections,  @Session["name"].ToString()</h2>
 }
 else
 {
-    <h2>Welcome to H Perfume's collection</h2>
+    <h2>Welcome to HZL's Perfume collections</h2>
 }
 <h2>Products</h2>
 <div class="row">
@@ -27,11 +27,17 @@ else
                 <p class="card-text">Price: @item.price</p>
                 @if (Session["userID"] != null)
                 {
-                    <a class="btn btn-success text-white" onclick="location.href='@Url.Action("OrderAdd", "Management", new { prodID = item.id })'"><i class="bi bi-trash"></i>Add to order</a>
+                    <a class="btn btn-success text-white" onclick="myFunction(); location.href='@Url.Action("OrderAdd", "Management", new { prodID = item.id })';"><i class="bi bi-trash"></i>Add to order</a>
                 }
             </div>
         </div>
     }
 </div>
+
+<script>
+    function myFunction() {
+        alert("Added to cart successfully");
+    }
+</script>
 
 

@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "SignUp as Admin";
+}
+
+<h2>Sign Up as Admin</h2>
+@using (Html.BeginForm("SignUpAdmin", "Account", FormMethod.Post))
+{
+    <input required type="text" class="form-control" name="username" placeholder="admin username" />
+    <input required type="text" class="form-control" name="password" placeholder="admin password" />
+    <input required type="text" class="form-control" name="name" placeholder="name" />
+    <input required type="text" class="form-control" name="gender" placeholder="gender" />
+    <input required type="text" class="form-control" name="imageLink" placeholder="imageLink" />
+    <input required type="submit" class="form-control btn-success" value="Sign Up as Admin" />
+}

@@ -21,6 +21,7 @@ namespace H.App_Data
                 
                 Session["name"] = db.Users.Where(x => x.id == asd).FirstOrDefault().name;
                 Session["userBalance"] = db.Users.Where(x => x.id == asd).FirstOrDefault().balance;
+                Session["userRole"] = db.Users.Where(x => x.id == asd).FirstOrDefault().roleID;
                 return View(newdata);
             }
             return View(newdata);

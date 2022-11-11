@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Order";
 }
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <h1>My Cart</h1>
 <div class="row">
@@ -80,21 +81,20 @@
             <h2>Total: @haha</h2>
             @{
                 var arrayko = myInts.ToArray();
-                string comma = ", ";
-
+                string result = string.Join(",", arrayko);
             }
             <h2>
-
-                @foreach (var hehe in arrayko)
+                @*@result*@
+                @*@foreach (var hehe in arrayko)
                 {
                     @hehe @comma;
-                }
+                }*@
             </h2>
             @{
                 if (haha <= Convert.ToInt32(Session["userBalance"].ToString()))
                 {
                     <h5>Afford nako kay ang akong kwarta kay @Session["userBalance"].ToString()</h5>
-                    <a class="btn btn-success text-white" @*onclick="location.href='@Url.Action("OrderBuyBulk", "Management", new { @myInts })'"*@>@*<i class="bi bi-pencil-square"></i>*@Buy all</a>
+                    <a id="buyLahat" class="btn btn-success text-white" onclick="location.href='@Url.Action("OrderBuyBulk", "Management", new { ara = @result })'"><i class="bi bi-pencil-square"></i>Buy all</a>
                 }
                 else
                 {
@@ -109,39 +109,5 @@
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-        $('#buyLahat').click(function () {
-            console.log("fsafsafs");
-            $.ajax({
-            url:"@Url.Action("OrderBuyBulk", "Management")",
-            type: 'GET',
-            dataType: 'json',
-            //contentType: 'application/json',
-            traditional: true,
-                data: { arrayko: arrayko },
-                success: function () {
-                showNotification("Record Saved Successfully", "info", true);
-
-            }
-        });
-        });
-
-
-    @*$("#buyLahat").on("click",function () {
-        console.log("fsafsafs");
-        $.ajax({
-
-            url:"@Url.Action("OrderBuyBulk", "Management")",
-            type: 'GET',
-            dataType: 'json',
-            //contentType: 'application/json',
-            //traditional: true,
-            data: { arrayko: arr },
-            success: function () {
-                showNotification("Record Saved Successfully", "info", true);
-
-            }
-        });
-        });*@
-    });
+    
 </script>

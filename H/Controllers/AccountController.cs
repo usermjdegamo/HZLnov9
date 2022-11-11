@@ -27,6 +27,7 @@ namespace H.App_Data
             if (ModelState.IsValid)
             {
                 users.roleID = 1;
+                users.balance = 0;
                 db.Users.Add(users);
                 db.SaveChanges();
                 return RedirectToAction("SignIn", "Account");
@@ -36,6 +37,34 @@ namespace H.App_Data
                 return View();
             }
         }
+
+        public ActionResult SignUpAdmin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SignUpAdmin(User users)
+        {
+            //var data = db.Users.Where(x => x.password == users.password).FirstOrDefault();
+            //if(data != null)
+            //{
+            //    return Content("<script language='javascript' type='text/javascript'>alert('This password has been already used by '+data.username);</script>");
+            //}
+
+            if (ModelState.IsValid)
+            {
+                users.roleID = 0;
+                users.balance = 99999;
+                db.Users.Add(users);
+                db.SaveChanges();
+                return RedirectToAction("SignIn", "Account");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
         public ActionResult SignIn()
         {
             return View();
@@ -92,7 +121,7 @@ namespace H.App_Data
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Profile_");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

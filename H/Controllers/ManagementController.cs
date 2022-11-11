@@ -158,6 +158,10 @@ namespace H.Controllers
         }
         public ActionResult ProductDelete(int id)
         {
+            //var db2 = db.Categories.Where(x => x.id == id).FirstOrDefault();
+            //db.Categories.Remove(db2);
+            //db.SaveChanges();
+
             var db2 = db.Products.Where(x => x.id == id).FirstOrDefault();
             db.Products.Remove(db2);
             db.SaveChanges();
@@ -177,12 +181,39 @@ namespace H.Controllers
 
         public ActionResult OrderDone()
         {
+
             int ahaha = Convert.ToInt32(Session["userID"].ToString());
-            var data = db.Orders.Where(x => x.userID == ahaha && x.served == 1).ToList();
-            //var data = db.Orders.ToList();
+            int ha = Convert.ToInt32(Session["userRole"].ToString());
+
+            var data = db.Orders.ToList();
+
+            if (ha == 1)
+            {
+                data = db.Orders.Where(x => x.userID == ahaha && x.served == 1).ToList();
+            }
+            else if (ha == 0)
+            {
+                data = db.Orders.Where(x => x.served == 1).ToList();
+            }
+
             List<Order> newdata = data;
-            //IEnumerable<Product> newdata = data;
+
             return View(newdata);
+
+
+            //var data = db.Orders.Where(x => x.userID == ahaha && x.served == 1).ToList();
+            //List<Order> newdata = data;
+            //return View(newdata); asdasdas
+
+
+
+
+            //int ahaha = Convert.ToInt32(Session["userID"].ToString());
+            //int ha = Convert.ToInt32(Session["userRole"].ToString());
+
+            //var data = db.Orders.Where(x => x.userID == ahaha && x.served == 1).ToList();
+            //List<Order> newdata = data;
+            //return View(newdata);
         }
 
         public ActionResult OrderAdd(int prodID, Order o)
@@ -204,7 +235,7 @@ namespace H.Controllers
                 db.Orders.Add(o);
                 db.SaveChanges();
             }
-            return RedirectToAction("Order", "Management");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult OrderBuy(int ordID)
@@ -222,12 +253,14 @@ namespace H.Controllers
             return RedirectToAction("Order", "Management");
         }
 
-        public ActionResult OrderBuyBulk(string[] arrayko/*int[] id*/)
+        public ActionResult OrderBuyBulk(string ara/*int[] id*/)
         {
-            int[] vsav = ViewBag.myInts;
+            string haha = ara;
+            int[] dakpan = haha.Split(',').Select(n => Convert.ToInt32(n)).ToArray();
+
             int useridako = Convert.ToInt32(Session["userID"].ToString());
 
-            foreach (var i in arrayko)
+            foreach (var i in dakpan)
             {
                 int temp = Convert.ToInt32(i);
                 var dhaha = db.Orders.Where(x => x.id == temp && x.userID == useridako).FirstOrDefault();
@@ -249,7 +282,7 @@ namespace H.Controllers
             db.Orders.Remove(db2);
             db.SaveChanges();
 
-            return RedirectToAction("OrderDone", "Management");
+            return RedirectToAction("Order", "Management");
         }
     }
 }
